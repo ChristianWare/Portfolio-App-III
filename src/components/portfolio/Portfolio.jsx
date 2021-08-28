@@ -1,10 +1,17 @@
-import "./portfolio.scss";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PortfolioList from "../portfolioList/PortfolioList";
+import "./portfolio.scss";
+import {
+  featuredPortfolio,
+  webPortfolio,
+  mobilePortfolio,
+  designPortfolio,
+  contentPortfolio,
+} from "../../data";
 
 export default function Portfolio() {
   const [selected, setSelected] = useState("featured");
+  const [data, setData] = useState([]);
 
   const list = [
     {
@@ -29,6 +36,28 @@ export default function Portfolio() {
     },
   ];
 
+  useEffect(() => {
+    switch (selected) {
+      case "featured":
+        setData(featuredPortfolio);
+        break;
+      case "web":
+        setData(webPortfolio);
+        break;
+      case "mobile":
+        setData(mobilePortfolio);
+        break;
+      case "design":
+        setData(designPortfolio);
+        break;
+      case "content":
+        setData(contentPortfolio);
+        break;
+      default:
+        setData(featuredPortfolio);
+    }
+  }, [selected]);
+
   return (
     <div className='portfolio' id='portfolio'>
       <h1>Portfolio</h1>
@@ -43,55 +72,16 @@ export default function Portfolio() {
         ))}
       </ul>
       <div className='container'>
+      {data.map(d=>(
+
         <div className='item'>
           <img
-            src='https://media-exp1.licdn.com/dms/image/C4E0BAQHhbVLaNOTTfA/company-logo_200_200/0/1556848405410?e=2159024400&v=beta&t=wWw3x55m5NtiV9tjtr0uUVvV-Avz2lYcvysSn0ALzQ0'
+            src={d.img}
             alt=''
           />
-          <h3>Banking App</h3>
+          <h3>{d.title}</h3>
         </div>
-        <div className='item'>
-          <img
-            src='https://media-exp1.licdn.com/dms/image/C4E0BAQHhbVLaNOTTfA/company-logo_200_200/0/1556848405410?e=2159024400&v=beta&t=wWw3x55m5NtiV9tjtr0uUVvV-Avz2lYcvysSn0ALzQ0'
-            alt=''
-          />
-          <h3>Banking App</h3>
-        </div>
-        <div className='item'>
-          <img
-            src='https://media-exp1.licdn.com/dms/image/C4E0BAQHhbVLaNOTTfA/company-logo_200_200/0/1556848405410?e=2159024400&v=beta&t=wWw3x55m5NtiV9tjtr0uUVvV-Avz2lYcvysSn0ALzQ0'
-            alt=''
-          />
-          <h3>Banking App</h3>
-        </div>
-        <div className='item'>
-          <img
-            src='https://media-exp1.licdn.com/dms/image/C4E0BAQHhbVLaNOTTfA/company-logo_200_200/0/1556848405410?e=2159024400&v=beta&t=wWw3x55m5NtiV9tjtr0uUVvV-Avz2lYcvysSn0ALzQ0'
-            alt=''
-          />
-          <h3>Banking App</h3>
-        </div>
-        <div className='item'>
-          <img
-            src='https://media-exp1.licdn.com/dms/image/C4E0BAQHhbVLaNOTTfA/company-logo_200_200/0/1556848405410?e=2159024400&v=beta&t=wWw3x55m5NtiV9tjtr0uUVvV-Avz2lYcvysSn0ALzQ0'
-            alt=''
-          />
-          <h3>Banking App</h3>
-        </div>
-        <div className='item'>
-          <img
-            src='https://media-exp1.licdn.com/dms/image/C4E0BAQHhbVLaNOTTfA/company-logo_200_200/0/1556848405410?e=2159024400&v=beta&t=wWw3x55m5NtiV9tjtr0uUVvV-Avz2lYcvysSn0ALzQ0'
-            alt=''
-          />
-          <h3>Banking App</h3>
-        </div>
-        <div className='item'>
-          <img
-            src='https://media-exp1.licdn.com/dms/image/C4E0BAQHhbVLaNOTTfA/company-logo_200_200/0/1556848405410?e=2159024400&v=beta&t=wWw3x55m5NtiV9tjtr0uUVvV-Avz2lYcvysSn0ALzQ0'
-            alt=''
-          />
-          <h3>Banking App</h3>
-        </div>
+      ))}
       </div>
     </div>
   );
